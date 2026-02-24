@@ -28,6 +28,9 @@
             --success: #22c55e;
             --danger: #ef4444;
             --danger-hover: #dc2626;
+            --gold: #fbbf24;
+            --silver: #9ca3af;
+            --bronze: #d97706;
         }
 
         body {
@@ -60,7 +63,6 @@
             margin-bottom: 64px;
         }
 
-        /* 페이지 전환 */
         .page {
             display: none;
         }
@@ -118,79 +120,77 @@
             border-radius: 6px;
         }
 
-        .selection-count {
-            font-size: 0.875rem;
+        .section-subtitle {
+            font-size: 0.75rem;
             color: var(--text-muted);
         }
 
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
+        .rank-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .rank-row {
+            display: flex;
+            align-items: center;
             gap: 12px;
         }
 
-        .options-grid.four-cols {
-            grid-template-columns: repeat(4, 1fr);
-        }
-
-        .option-item {
-            position: relative;
-        }
-
-        .option-item input[type="checkbox"] {
-            display: none;
-        }
-
-        .option-label {
+        .rank-label {
+            width: 56px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 24px 12px;
+            gap: 4px;
+        }
+
+        .rank-label.rank-1 { color: var(--gold); }
+        .rank-label.rank-2 { color: var(--silver); }
+        .rank-label.rank-3 { color: var(--bronze); }
+
+        .rank-icon {
+            font-size: 1rem;
+        }
+
+        .rank-select {
+            flex: 1;
+            padding: 12px 14px;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.9375rem;
+            font-family: inherit;
             cursor: pointer;
             transition: all 0.2s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
         }
 
-        .option-label:hover {
-            background: var(--bg-hover);
+        .rank-select:hover {
             border-color: #3a3a3a;
         }
 
-        .option-item input[type="checkbox"]:checked + .option-label {
-            background: var(--text-primary);
+        .rank-select:focus {
+            outline: none;
             border-color: var(--text-primary);
-            color: var(--bg-primary);
         }
 
-        .option-item input[type="checkbox"]:disabled + .option-label {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        .option-item input[type="checkbox"]:disabled + .option-label:hover {
-            background: var(--bg-card);
-            border-color: var(--border);
-        }
-
-        .option-number {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        .option-text {
-            font-size: 0.75rem;
-            margin-top: 4px;
+        .rank-points {
+            width: 48px;
+            text-align: right;
+            font-size: 0.8125rem;
             color: var(--text-muted);
         }
 
-        .option-item input[type="checkbox"]:checked + .option-label .option-text {
-            color: var(--bg-primary);
-            opacity: 0.6;
-        }
+        .rank-points.rank-1 { color: var(--gold); font-weight: 600; }
+        .rank-points.rank-2 { color: var(--silver); }
+        .rank-points.rank-3 { color: var(--bronze); }
 
         .button-section {
             display: flex;
@@ -237,7 +237,7 @@
             color: var(--text-primary);
         }
 
-        /* 결과 페이지 스타일 */
+        /* 결과 페이지 */
         .results-container {
             background: var(--bg-secondary);
             border: 1px solid var(--border);
@@ -246,7 +246,7 @@
         }
 
         .results-group {
-            margin-bottom: 32px;
+            margin-bottom: 40px;
         }
 
         .results-group:last-of-type {
@@ -257,7 +257,7 @@
             font-size: 0.875rem;
             font-weight: 600;
             color: var(--text-secondary);
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
@@ -265,38 +265,79 @@
         .result-item {
             display: flex;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+            padding: 14px 16px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            transition: all 0.2s ease;
         }
 
-        .result-label {
-            width: 48px;
-            font-size: 0.875rem;
-            font-weight: 500;
+        .result-item.rank-1 {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(251, 191, 36, 0.05) 100%);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            padding: 18px 16px;
+        }
+
+        .result-rank {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            border-radius: 6px;
+            margin-right: 14px;
+            background: var(--bg-hover);
             color: var(--text-secondary);
         }
 
-        .result-bar-container {
-            flex: 1;
-            height: 8px;
-            background: var(--bg-card);
-            border-radius: 100px;
-            overflow: hidden;
-            margin: 0 16px;
-        }
-
-        .result-bar {
-            height: 100%;
-            background: var(--text-primary);
-            border-radius: 100px;
-            transition: width 0.6s ease;
-        }
-
-        .result-count {
-            width: 48px;
-            text-align: right;
+        .result-item.rank-1 .result-rank {
+            background: var(--gold);
+            color: #000;
+            width: 32px;
+            height: 32px;
             font-size: 0.875rem;
+        }
+
+        .result-item.rank-2 .result-rank {
+            background: var(--silver);
+            color: #000;
+        }
+
+        .result-item.rank-3 .result-rank {
+            background: var(--bronze);
+            color: #fff;
+        }
+
+        .result-label {
+            flex: 1;
+            font-size: 0.9375rem;
             font-weight: 500;
             color: var(--text-primary);
+        }
+
+        .result-item.rank-1 .result-label {
+            font-weight: 700;
+            font-size: 1.0625rem;
+        }
+
+        .result-score {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .result-item.rank-1 .result-score {
+            color: var(--gold);
+            font-size: 1.375rem;
+        }
+
+        .result-score span {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-left: 2px;
         }
 
         .total-votes {
@@ -359,7 +400,7 @@
             color: var(--danger);
         }
 
-        /* 모달 공통 스타일 */
+        /* 모달 */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -450,7 +491,6 @@
             background: var(--danger-hover);
         }
 
-        /* 투표 완료 모달 */
         .success-modal .modal {
             padding: 40px 32px;
         }
@@ -504,20 +544,23 @@
                 padding: 24px 20px;
             }
 
-            .options-grid {
-                grid-template-columns: repeat(3, 1fr);
+            .rank-row {
+                gap: 8px;
             }
 
-            .options-grid.four-cols {
-                grid-template-columns: repeat(2, 1fr);
+            .rank-label {
+                width: 48px;
+                font-size: 0.8125rem;
             }
 
-            .option-label {
-                padding: 20px 8px;
+            .rank-select {
+                padding: 10px 12px;
+                font-size: 0.875rem;
             }
 
-            .option-number {
-                font-size: 1.25rem;
+            .rank-points {
+                width: 40px;
+                font-size: 0.75rem;
             }
 
             .button-section {
@@ -541,6 +584,14 @@
             .total-number {
                 font-size: 2.5rem;
             }
+
+            .result-item {
+                padding: 12px;
+            }
+
+            .result-item.rank-1 {
+                padding: 14px 12px;
+            }
         }
     </style>
 </head>
@@ -549,7 +600,7 @@
         <!-- 투표 페이지 -->
         <div class="page active" id="votePage">
             <h1 class="title">로고 선택해주세요</h1>
-            <p class="subtitle">각 카테고리에서 최대 2개까지 선택할 수 있습니다</p>
+            <p class="subtitle">각 로고의 순위를 매겨주세요</p>
 
             <div class="vote-section">
                 <div class="section-header">
@@ -557,43 +608,68 @@
                         <span class="badge">A</span>
                         로고
                     </h2>
-                    <span class="selection-count" id="countA">0 / 2</span>
+                    <span class="section-subtitle">1등 5점 → 5등 1점</span>
                 </div>
-                <div class="options-grid" id="groupA">
-                    <div class="option-item">
-                        <input type="checkbox" id="a1" name="groupA" value="01">
-                        <label for="a1" class="option-label">
-                            <span class="option-number">01</span>
-                            <span class="option-text">A-01</span>
-                        </label>
+                <div class="rank-grid" id="groupA">
+                    <div class="rank-row">
+                        <span class="rank-label rank-1"><span class="rank-icon">🥇</span> 1등</span>
+                        <select class="rank-select" data-group="A" data-rank="1">
+                            <option value="">선택</option>
+                            <option value="01">A-01</option>
+                            <option value="02">A-02</option>
+                            <option value="03">A-03</option>
+                            <option value="04">A-04</option>
+                            <option value="05">A-05</option>
+                        </select>
+                        <span class="rank-points rank-1">+5점</span>
                     </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="a2" name="groupA" value="02">
-                        <label for="a2" class="option-label">
-                            <span class="option-number">02</span>
-                            <span class="option-text">A-02</span>
-                        </label>
+                    <div class="rank-row">
+                        <span class="rank-label rank-2"><span class="rank-icon">🥈</span> 2등</span>
+                        <select class="rank-select" data-group="A" data-rank="2">
+                            <option value="">선택</option>
+                            <option value="01">A-01</option>
+                            <option value="02">A-02</option>
+                            <option value="03">A-03</option>
+                            <option value="04">A-04</option>
+                            <option value="05">A-05</option>
+                        </select>
+                        <span class="rank-points rank-2">+4점</span>
                     </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="a3" name="groupA" value="03">
-                        <label for="a3" class="option-label">
-                            <span class="option-number">03</span>
-                            <span class="option-text">A-03</span>
-                        </label>
+                    <div class="rank-row">
+                        <span class="rank-label rank-3"><span class="rank-icon">🥉</span> 3등</span>
+                        <select class="rank-select" data-group="A" data-rank="3">
+                            <option value="">선택</option>
+                            <option value="01">A-01</option>
+                            <option value="02">A-02</option>
+                            <option value="03">A-03</option>
+                            <option value="04">A-04</option>
+                            <option value="05">A-05</option>
+                        </select>
+                        <span class="rank-points rank-3">+3점</span>
                     </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="a4" name="groupA" value="04">
-                        <label for="a4" class="option-label">
-                            <span class="option-number">04</span>
-                            <span class="option-text">A-04</span>
-                        </label>
+                    <div class="rank-row">
+                        <span class="rank-label">4등</span>
+                        <select class="rank-select" data-group="A" data-rank="4">
+                            <option value="">선택</option>
+                            <option value="01">A-01</option>
+                            <option value="02">A-02</option>
+                            <option value="03">A-03</option>
+                            <option value="04">A-04</option>
+                            <option value="05">A-05</option>
+                        </select>
+                        <span class="rank-points">+2점</span>
                     </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="a5" name="groupA" value="05">
-                        <label for="a5" class="option-label">
-                            <span class="option-number">05</span>
-                            <span class="option-text">A-05</span>
-                        </label>
+                    <div class="rank-row">
+                        <span class="rank-label">5등</span>
+                        <select class="rank-select" data-group="A" data-rank="5">
+                            <option value="">선택</option>
+                            <option value="01">A-01</option>
+                            <option value="02">A-02</option>
+                            <option value="03">A-03</option>
+                            <option value="04">A-04</option>
+                            <option value="05">A-05</option>
+                        </select>
+                        <span class="rank-points">+1점</span>
                     </div>
                 </div>
             </div>
@@ -604,36 +680,52 @@
                         <span class="badge">B</span>
                         로고
                     </h2>
-                    <span class="selection-count" id="countB">0 / 2</span>
+                    <span class="section-subtitle">1등 4점 → 4등 1점</span>
                 </div>
-                <div class="options-grid four-cols" id="groupB">
-                    <div class="option-item">
-                        <input type="checkbox" id="b1" name="groupB" value="01">
-                        <label for="b1" class="option-label">
-                            <span class="option-number">01</span>
-                            <span class="option-text">B-01</span>
-                        </label>
+                <div class="rank-grid" id="groupB">
+                    <div class="rank-row">
+                        <span class="rank-label rank-1"><span class="rank-icon">🥇</span> 1등</span>
+                        <select class="rank-select" data-group="B" data-rank="1">
+                            <option value="">선택</option>
+                            <option value="01">B-01</option>
+                            <option value="02">B-02</option>
+                            <option value="03">B-03</option>
+                            <option value="04">B-04</option>
+                        </select>
+                        <span class="rank-points rank-1">+4점</span>
                     </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="b2" name="groupB" value="02">
-                        <label for="b2" class="option-label">
-                            <span class="option-number">02</span>
-                            <span class="option-text">B-02</span>
-                        </label>
+                    <div class="rank-row">
+                        <span class="rank-label rank-2"><span class="rank-icon">🥈</span> 2등</span>
+                        <select class="rank-select" data-group="B" data-rank="2">
+                            <option value="">선택</option>
+                            <option value="01">B-01</option>
+                            <option value="02">B-02</option>
+                            <option value="03">B-03</option>
+                            <option value="04">B-04</option>
+                        </select>
+                        <span class="rank-points rank-2">+3점</span>
                     </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="b3" name="groupB" value="03">
-                        <label for="b3" class="option-label">
-                            <span class="option-number">03</span>
-                            <span class="option-text">B-03</span>
-                        </label>
+                    <div class="rank-row">
+                        <span class="rank-label rank-3"><span class="rank-icon">🥉</span> 3등</span>
+                        <select class="rank-select" data-group="B" data-rank="3">
+                            <option value="">선택</option>
+                            <option value="01">B-01</option>
+                            <option value="02">B-02</option>
+                            <option value="03">B-03</option>
+                            <option value="04">B-04</option>
+                        </select>
+                        <span class="rank-points rank-3">+2점</span>
                     </div>
-                    <div class="option-item">
-                        <input type="checkbox" id="b4" name="groupB" value="04">
-                        <label for="b4" class="option-label">
-                            <span class="option-number">04</span>
-                            <span class="option-text">B-04</span>
-                        </label>
+                    <div class="rank-row">
+                        <span class="rank-label">4등</span>
+                        <select class="rank-select" data-group="B" data-rank="4">
+                            <option value="">선택</option>
+                            <option value="01">B-01</option>
+                            <option value="02">B-02</option>
+                            <option value="03">B-03</option>
+                            <option value="04">B-04</option>
+                        </select>
+                        <span class="rank-points">+1점</span>
                     </div>
                 </div>
             </div>
@@ -647,19 +739,19 @@
         <!-- 결과 페이지 -->
         <div class="page" id="resultPage">
             <h1 class="title">투표 현황</h1>
-            <p class="subtitle">실시간 투표 결과입니다</p>
+            <p class="subtitle">점수 순으로 정렬된 결과입니다</p>
 
             <div class="results-container">
                 <div class="results-group">
-                    <h3 class="results-group-title">A 로고</h3>
+                    <h3 class="results-group-title">A 로고 순위</h3>
                     <div id="resultsA"></div>
                 </div>
                 <div class="results-group">
-                    <h3 class="results-group-title">B 로고</h3>
+                    <h3 class="results-group-title">B 로고 순위</h3>
                     <div id="resultsB"></div>
                 </div>
                 <div class="total-votes">
-                    <p class="total-label">총 투표 수</p>
+                    <p class="total-label">총 참여자 수</p>
                     <p class="total-number" id="totalVotes">0</p>
                 </div>
                 <div class="button-group">
@@ -698,16 +790,20 @@
     </div>
 
     <script>
-        const votes = {
+        // 점수 설정: A는 5,4,3,2,1 / B는 4,3,2,1
+        const POINTS = {
+            A: [5, 4, 3, 2, 1],
+            B: [4, 3, 2, 1]
+        };
+
+        const scores = {
             A: { '01': 0, '02': 0, '03': 0, '04': 0, '05': 0 },
             B: { '01': 0, '02': 0, '03': 0, '04': 0 }
         };
         let totalVoteCount = 0;
 
-        const groupACheckboxes = document.querySelectorAll('input[name="groupA"]');
-        const groupBCheckboxes = document.querySelectorAll('input[name="groupB"]');
-        const countAElement = document.getElementById('countA');
-        const countBElement = document.getElementById('countB');
+        const groupASelects = document.querySelectorAll('#groupA .rank-select');
+        const groupBSelects = document.querySelectorAll('#groupB .rank-select');
         const submitBtn = document.getElementById('submitBtn');
         const viewResultBtn = document.getElementById('viewResultBtn');
         const backBtn = document.getElementById('backBtn');
@@ -720,33 +816,31 @@
         const cancelReset = document.getElementById('cancelReset');
         const confirmReset = document.getElementById('confirmReset');
 
-        function updateSelectionLimit(checkboxes, countElement, maxCount) {
-            const checked = Array.from(checkboxes).filter(cb => cb.checked);
-            countElement.textContent = `${checked.length} / ${maxCount}`;
+        // 중복 선택 방지
+        function updateSelectOptions(selects) {
+            const selectedValues = Array.from(selects)
+                .map(s => s.value)
+                .filter(v => v !== '');
 
-            if (checked.length >= maxCount) {
-                checkboxes.forEach(cb => {
-                    if (!cb.checked) {
-                        cb.disabled = true;
+            selects.forEach(select => {
+                const options = select.querySelectorAll('option');
+                options.forEach(option => {
+                    if (option.value === '') return;
+                    if (selectedValues.includes(option.value) && option.value !== select.value) {
+                        option.disabled = true;
+                    } else {
+                        option.disabled = false;
                     }
                 });
-            } else {
-                checkboxes.forEach(cb => {
-                    cb.disabled = false;
-                });
-            }
+            });
         }
 
-        groupACheckboxes.forEach(cb => {
-            cb.addEventListener('change', () => {
-                updateSelectionLimit(groupACheckboxes, countAElement, 2);
-            });
+        groupASelects.forEach(select => {
+            select.addEventListener('change', () => updateSelectOptions(groupASelects));
         });
 
-        groupBCheckboxes.forEach(cb => {
-            cb.addEventListener('change', () => {
-                updateSelectionLimit(groupBCheckboxes, countBElement, 2);
-            });
+        groupBSelects.forEach(select => {
+            select.addEventListener('change', () => updateSelectOptions(groupBSelects));
         });
 
         function showPage(page) {
@@ -759,91 +853,88 @@
         function renderResults() {
             const resultsA = document.getElementById('resultsA');
             const resultsB = document.getElementById('resultsB');
-            
-            let maxVoteA = Math.max(...Object.values(votes.A), 1);
-            let maxVoteB = Math.max(...Object.values(votes.B), 1);
-            let maxVote = Math.max(maxVoteA, maxVoteB, 1);
+
+            // A 그룹 정렬
+            const sortedA = Object.entries(scores.A)
+                .sort((a, b) => b[1] - a[1]);
 
             resultsA.innerHTML = '';
-            for (const [key, value] of Object.entries(votes.A)) {
-                const percentage = (value / maxVote) * 100;
+            sortedA.forEach(([key, value], index) => {
+                const rankClass = index < 3 ? `rank-${index + 1}` : '';
                 resultsA.innerHTML += `
-                    <div class="result-item">
+                    <div class="result-item ${rankClass}">
+                        <div class="result-rank">${index + 1}</div>
                         <span class="result-label">A-${key}</span>
-                        <div class="result-bar-container">
-                            <div class="result-bar" style="width: ${percentage}%"></div>
-                        </div>
-                        <span class="result-count">${value}표</span>
+                        <span class="result-score">${value}<span>점</span></span>
                     </div>
                 `;
-            }
+            });
+
+            // B 그룹 정렬
+            const sortedB = Object.entries(scores.B)
+                .sort((a, b) => b[1] - a[1]);
 
             resultsB.innerHTML = '';
-            for (const [key, value] of Object.entries(votes.B)) {
-                const percentage = (value / maxVote) * 100;
+            sortedB.forEach(([key, value], index) => {
+                const rankClass = index < 3 ? `rank-${index + 1}` : '';
                 resultsB.innerHTML += `
-                    <div class="result-item">
+                    <div class="result-item ${rankClass}">
+                        <div class="result-rank">${index + 1}</div>
                         <span class="result-label">B-${key}</span>
-                        <div class="result-bar-container">
-                            <div class="result-bar" style="width: ${percentage}%"></div>
-                        </div>
-                        <span class="result-count">${value}표</span>
+                        <span class="result-score">${value}<span>점</span></span>
                     </div>
                 `;
-            }
+            });
 
             document.getElementById('totalVotes').textContent = totalVoteCount;
         }
 
         function resetForm() {
-            groupACheckboxes.forEach(cb => {
-                cb.checked = false;
-                cb.disabled = false;
-            });
-            groupBCheckboxes.forEach(cb => {
-                cb.checked = false;
-                cb.disabled = false;
-            });
-            countAElement.textContent = '0 / 2';
-            countBElement.textContent = '0 / 2';
+            groupASelects.forEach(s => s.value = '');
+            groupBSelects.forEach(s => s.value = '');
+            updateSelectOptions(groupASelects);
+            updateSelectOptions(groupBSelects);
         }
 
         function resetAllVotes() {
-            votes.A = { '01': 0, '02': 0, '03': 0, '04': 0, '05': 0 };
-            votes.B = { '01': 0, '02': 0, '03': 0, '04': 0 };
+            scores.A = { '01': 0, '02': 0, '03': 0, '04': 0, '05': 0 };
+            scores.B = { '01': 0, '02': 0, '03': 0, '04': 0 };
             totalVoteCount = 0;
             renderResults();
         }
 
-        // 투표완료 버튼 클릭 → 투표 반영 + 완료 팝업
+        // 투표완료
         submitBtn.addEventListener('click', () => {
-            const selectedA = Array.from(groupACheckboxes).filter(cb => cb.checked);
-            const selectedB = Array.from(groupBCheckboxes).filter(cb => cb.checked);
+            const aValues = Array.from(groupASelects).map(s => s.value);
+            const bValues = Array.from(groupBSelects).map(s => s.value);
 
-            if (selectedA.length === 0 && selectedB.length === 0) {
-                alert('최소 하나 이상의 로고를 선택해주세요.');
+            // 유효성 검사 - 최소 하나 이상 선택
+            const hasAnySelection = [...aValues, ...bValues].some(v => v !== '');
+            if (!hasAnySelection) {
+                alert('최소 하나 이상의 순위를 선택해주세요.');
                 return;
             }
 
-            selectedA.forEach(cb => {
-                votes.A[cb.value]++;
+            // A 그룹 점수 반영
+            aValues.forEach((value, index) => {
+                if (value) {
+                    scores.A[value] += POINTS.A[index];
+                }
             });
 
-            selectedB.forEach(cb => {
-                votes.B[cb.value]++;
+            // B 그룹 점수 반영
+            bValues.forEach((value, index) => {
+                if (value) {
+                    scores.B[value] += POINTS.B[index];
+                }
             });
 
             totalVoteCount++;
             renderResults();
-
-            // 폼 초기화
             resetForm();
-
-            // 완료 팝업 표시
             successModal.classList.add('show');
         });
 
-        // 완료 팝업 닫기
         closeSuccessModal.addEventListener('click', () => {
             successModal.classList.remove('show');
         });
@@ -854,18 +945,15 @@
             }
         });
 
-        // 투표 결과 보기 버튼
         viewResultBtn.addEventListener('click', () => {
             renderResults();
             showPage(resultPage);
         });
 
-        // 투표하러 가기 버튼
         backBtn.addEventListener('click', () => {
             showPage(votePage);
         });
 
-        // 결과 초기화
         resetBtn.addEventListener('click', () => {
             resetModal.classList.add('show');
         });
