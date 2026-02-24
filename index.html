@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로고 선택해주세요</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-card: #1a1a1a;
+            --bg-hover: #252525;
+            --border: #2a2a2a;
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1a1;
+            --text-muted: #666;
+            --accent: #fff;
+            --accent-hover: #e5e5e5;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --danger-hover: #dc2626;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 64px;
+        }
+
+        /* 페이지 전환 */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .vote-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 16px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            font-size: 0.875rem;
+            font-weight: 700;
+            border-radius: 6px;
+        }
+
+        .selection-count {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+
+        .options-grid.four-cols {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .option-item {
+            position: relative;
+        }
+
+        .option-item input[type="checkbox"] {
+            display: none;
+        }
+
+        .option-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            background: var(--bg-hover);
+            border-color: #3a3a3a;
+        }
+
+        .option-item input[type="checkbox"]:checked + .option-label {
+            background: var(--text-primary);
+            border-color: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .option-item input[type="checkbox"]:disabled + .option-label {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .option-item input[type="checkbox"]:disabled + .option-label:hover {
+            background: var(--bg-card);
+            border-color: var(--border);
+        }
+
+        .option-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .option-text {
+            font-size: 0.75rem;
+            margin-top: 4px;
+            color: var(--text-muted);
+        }
+
+        .option-item input[type="checkbox"]:checked + .option-label .option-text {
+            color: var(--bg-primary);
+            opacity: 0.6;
+        }
+
+        .button-section {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 48px;
+        }
+
+        .submit-btn {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border: none;
+            padding: 16px 48px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .view-result-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            padding: 16px 32px;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .view-result-btn:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
+        }
+
+        /* 결과 페이지 스타일 */
+        .results-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px 32px;
+        }
+
+        .results-group {
+            margin-bottom: 32px;
+        }
+
+        .results-group:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .results-group-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .result-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .result-label {
+            width: 48px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .result-bar-container {
+            flex: 1;
+            height: 8px;
+            background: var(--bg-card);
+            border-radius: 100px;
+            overflow: hidden;
+            margin: 0 16px;
+        }
+
+        .result-bar {
+            height: 100%;
+            background: var(--text-primary);
+            border-radius: 100px;
+            transition: width 0.6s ease;
+        }
+
+        .result-count {
+            width: 48px;
+            text-align: right;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .total-votes {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+        }
+
+        .total-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .total-number {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .back-btn {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border: none;
+            padding: 14px 32px;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .reset-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            padding: 14px 32px;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .reset-btn:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        /* 모달 공통 스타일 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 32px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 380px;
+            margin: 20px;
+            animation: modalIn 0.2s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .modal p {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-btn.cancel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .modal-btn.cancel:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .modal-btn.confirm {
+            background: var(--danger);
+            border: none;
+            color: white;
+        }
+
+        .modal-btn.confirm:hover {
+            background: var(--danger-hover);
+        }
+
+        /* 투표 완료 모달 */
+        .success-modal .modal {
+            padding: 40px 32px;
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .success-icon svg {
+            width: 32px;
+            height: 32px;
+            color: white;
+        }
+
+        .success-modal h3 {
+            margin-bottom: 24px;
+        }
+
+        .success-modal .modal-btn.ok {
+            background: var(--text-primary);
+            border: none;
+            color: var(--bg-primary);
+            padding: 14px 48px;
+        }
+
+        .success-modal .modal-btn.ok:hover {
+            background: var(--accent-hover);
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 48px 20px;
+            }
+
+            .title {
+                font-size: 1.75rem;
+            }
+
+            .subtitle {
+                margin-bottom: 40px;
+            }
+
+            .vote-section {
+                padding: 24px 20px;
+            }
+
+            .options-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .options-grid.four-cols {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .option-label {
+                padding: 20px 8px;
+            }
+
+            .option-number {
+                font-size: 1.25rem;
+            }
+
+            .button-section {
+                flex-direction: column;
+            }
+
+            .submit-btn,
+            .view-result-btn {
+                width: 100%;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .back-btn,
+            .reset-btn {
+                width: 100%;
+            }
+
+            .total-number {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 투표 페이지 -->
+        <div class="page active" id="votePage">
+            <h1 class="title">로고 선택해주세요</h1>
+            <p class="subtitle">각 카테고리에서 최대 2개까지 선택할 수 있습니다</p>
+
+            <div class="vote-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="badge">A</span>
+                        로고
+                    </h2>
+                    <span class="selection-count" id="countA">0 / 2</span>
+                </div>
+                <div class="options-grid" id="groupA">
+                    <div class="option-item">
+                        <input type="checkbox" id="a1" name="groupA" value="01">
+                        <label for="a1" class="option-label">
+                            <span class="option-number">01</span>
+                            <span class="option-text">A-01</span>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="a2" name="groupA" value="02">
+                        <label for="a2" class="option-label">
+                            <span class="option-number">02</span>
+                            <span class="option-text">A-02</span>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="a3" name="groupA" value="03">
+                        <label for="a3" class="option-label">
+                            <span class="option-number">03</span>
+                            <span class="option-text">A-03</span>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="a4" name="groupA" value="04">
+                        <label for="a4" class="option-label">
+                            <span class="option-number">04</span>
+                            <span class="option-text">A-04</span>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="a5" name="groupA" value="05">
+                        <label for="a5" class="option-label">
+                            <span class="option-number">05</span>
+                            <span class="option-text">A-05</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vote-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="badge">B</span>
+                        로고
+                    </h2>
+                    <span class="selection-count" id="countB">0 / 2</span>
+                </div>
+                <div class="options-grid four-cols" id="groupB">
+                    <div class="option-item">
+                        <input type="checkbox" id="b1" name="groupB" value="01">
+                        <label for="b1" class="option-label">
+                            <span class="option-number">01</span>
+                            <span class="option-text">B-01</span>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="b2" name="groupB" value="02">
+                        <label for="b2" class="option-label">
+                            <span class="option-number">02</span>
+                            <span class="option-text">B-02</span>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="b3" name="groupB" value="03">
+                        <label for="b3" class="option-label">
+                            <span class="option-number">03</span>
+                            <span class="option-text">B-03</span>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="b4" name="groupB" value="04">
+                        <label for="b4" class="option-label">
+                            <span class="option-number">04</span>
+                            <span class="option-text">B-04</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-section">
+                <button class="submit-btn" id="submitBtn">투표완료</button>
+                <button class="view-result-btn" id="viewResultBtn">투표 결과 보기</button>
+            </div>
+        </div>
+
+        <!-- 결과 페이지 -->
+        <div class="page" id="resultPage">
+            <h1 class="title">투표 현황</h1>
+            <p class="subtitle">실시간 투표 결과입니다</p>
+
+            <div class="results-container">
+                <div class="results-group">
+                    <h3 class="results-group-title">A 로고</h3>
+                    <div id="resultsA"></div>
+                </div>
+                <div class="results-group">
+                    <h3 class="results-group-title">B 로고</h3>
+                    <div id="resultsB"></div>
+                </div>
+                <div class="total-votes">
+                    <p class="total-label">총 투표 수</p>
+                    <p class="total-number" id="totalVotes">0</p>
+                </div>
+                <div class="button-group">
+                    <button class="back-btn" id="backBtn">투표하러 가기</button>
+                    <button class="reset-btn" id="resetBtn">결과 초기화</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 투표 완료 모달 -->
+    <div class="modal-overlay success-modal" id="successModal">
+        <div class="modal">
+            <div class="success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+            <h3>투표가 완료되었습니다</h3>
+            <div class="modal-buttons">
+                <button class="modal-btn ok" id="closeSuccessModal">확인</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 리셋 확인 모달 -->
+    <div class="modal-overlay" id="resetModal">
+        <div class="modal">
+            <h3>결과를 초기화할까요?</h3>
+            <p>모든 투표 데이터가 삭제됩니다.<br>이 작업은 되돌릴 수 없습니다.</p>
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" id="cancelReset">취소</button>
+                <button class="modal-btn confirm" id="confirmReset">초기화</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const votes = {
+            A: { '01': 0, '02': 0, '03': 0, '04': 0, '05': 0 },
+            B: { '01': 0, '02': 0, '03': 0, '04': 0 }
+        };
+        let totalVoteCount = 0;
+
+        const groupACheckboxes = document.querySelectorAll('input[name="groupA"]');
+        const groupBCheckboxes = document.querySelectorAll('input[name="groupB"]');
+        const countAElement = document.getElementById('countA');
+        const countBElement = document.getElementById('countB');
+        const submitBtn = document.getElementById('submitBtn');
+        const viewResultBtn = document.getElementById('viewResultBtn');
+        const backBtn = document.getElementById('backBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const votePage = document.getElementById('votePage');
+        const resultPage = document.getElementById('resultPage');
+        const successModal = document.getElementById('successModal');
+        const closeSuccessModal = document.getElementById('closeSuccessModal');
+        const resetModal = document.getElementById('resetModal');
+        const cancelReset = document.getElementById('cancelReset');
+        const confirmReset = document.getElementById('confirmReset');
+
+        function updateSelectionLimit(checkboxes, countElement, maxCount) {
+            const checked = Array.from(checkboxes).filter(cb => cb.checked);
+            countElement.textContent = `${checked.length} / ${maxCount}`;
+
+            if (checked.length >= maxCount) {
+                checkboxes.forEach(cb => {
+                    if (!cb.checked) {
+                        cb.disabled = true;
+                    }
+                });
+            } else {
+                checkboxes.forEach(cb => {
+                    cb.disabled = false;
+                });
+            }
+        }
+
+        groupACheckboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                updateSelectionLimit(groupACheckboxes, countAElement, 2);
+            });
+        });
+
+        groupBCheckboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                updateSelectionLimit(groupBCheckboxes, countBElement, 2);
+            });
+        });
+
+        function showPage(page) {
+            votePage.classList.remove('active');
+            resultPage.classList.remove('active');
+            page.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderResults() {
+            const resultsA = document.getElementById('resultsA');
+            const resultsB = document.getElementById('resultsB');
+            
+            let maxVoteA = Math.max(...Object.values(votes.A), 1);
+            let maxVoteB = Math.max(...Object.values(votes.B), 1);
+            let maxVote = Math.max(maxVoteA, maxVoteB, 1);
+
+            resultsA.innerHTML = '';
+            for (const [key, value] of Object.entries(votes.A)) {
+                const percentage = (value / maxVote) * 100;
+                resultsA.innerHTML += `
+                    <div class="result-item">
+                        <span class="result-label">A-${key}</span>
+                        <div class="result-bar-container">
+                            <div class="result-bar" style="width: ${percentage}%"></div>
+                        </div>
+                        <span class="result-count">${value}표</span>
+                    </div>
+                `;
+            }
+
+            resultsB.innerHTML = '';
+            for (const [key, value] of Object.entries(votes.B)) {
+                const percentage = (value / maxVote) * 100;
+                resultsB.innerHTML += `
+                    <div class="result-item">
+                        <span class="result-label">B-${key}</span>
+                        <div class="result-bar-container">
+                            <div class="result-bar" style="width: ${percentage}%"></div>
+                        </div>
+                        <span class="result-count">${value}표</span>
+                    </div>
+                `;
+            }
+
+            document.getElementById('totalVotes').textContent = totalVoteCount;
+        }
+
+        function resetForm() {
+            groupACheckboxes.forEach(cb => {
+                cb.checked = false;
+                cb.disabled = false;
+            });
+            groupBCheckboxes.forEach(cb => {
+                cb.checked = false;
+                cb.disabled = false;
+            });
+            countAElement.textContent = '0 / 2';
+            countBElement.textContent = '0 / 2';
+        }
+
+        function resetAllVotes() {
+            votes.A = { '01': 0, '02': 0, '03': 0, '04': 0, '05': 0 };
+            votes.B = { '01': 0, '02': 0, '03': 0, '04': 0 };
+            totalVoteCount = 0;
+            renderResults();
+        }
+
+        // 투표완료 버튼 클릭 → 투표 반영 + 완료 팝업
+        submitBtn.addEventListener('click', () => {
+            const selectedA = Array.from(groupACheckboxes).filter(cb => cb.checked);
+            const selectedB = Array.from(groupBCheckboxes).filter(cb => cb.checked);
+
+            if (selectedA.length === 0 && selectedB.length === 0) {
+                alert('최소 하나 이상의 로고를 선택해주세요.');
+                return;
+            }
+
+            selectedA.forEach(cb => {
+                votes.A[cb.value]++;
+            });
+
+            selectedB.forEach(cb => {
+                votes.B[cb.value]++;
+            });
+
+            totalVoteCount++;
+            renderResults();
+
+            // 폼 초기화
+            resetForm();
+
+            // 완료 팝업 표시
+            successModal.classList.add('show');
+        });
+
+        // 완료 팝업 닫기
+        closeSuccessModal.addEventListener('click', () => {
+            successModal.classList.remove('show');
+        });
+
+        successModal.addEventListener('click', (e) => {
+            if (e.target === successModal) {
+                successModal.classList.remove('show');
+            }
+        });
+
+        // 투표 결과 보기 버튼
+        viewResultBtn.addEventListener('click', () => {
+            renderResults();
+            showPage(resultPage);
+        });
+
+        // 투표하러 가기 버튼
+        backBtn.addEventListener('click', () => {
+            showPage(votePage);
+        });
+
+        // 결과 초기화
+        resetBtn.addEventListener('click', () => {
+            resetModal.classList.add('show');
+        });
+
+        cancelReset.addEventListener('click', () => {
+            resetModal.classList.remove('show');
+        });
+
+        confirmReset.addEventListener('click', () => {
+            resetAllVotes();
+            resetModal.classList.remove('show');
+        });
+
+        resetModal.addEventListener('click', (e) => {
+            if (e.target === resetModal) {
+                resetModal.classList.remove('show');
+            }
+        });
+
+        renderResults();
+    </script>
+</body>
+</html>
