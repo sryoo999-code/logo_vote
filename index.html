@@ -7,6 +7,30 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCdw8ASRhd_L-c7YZjyMjPpGA8X7XI0Puo",
+            authDomain: "space-87168.firebaseapp.com",
+            projectId: "space-87168",
+            storageBucket: "space-87168.firebasestorage.app",
+            messagingSenderId: "577886745261",
+            appId: "1:577886745261:web:6c1fba8c420f22b370cc24",
+            measurementId: "G-4FFTEPXPLK"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.firebaseDB = db;
+        window.firebaseDoc = doc;
+        window.firebaseGetDoc = getDoc;
+        window.firebaseSetDoc = setDoc;
+        window.firebaseOnSnapshot = onSnapshot;
+    </script>
     <style>
         * {
             margin: 0;
@@ -789,18 +813,49 @@
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        // Firebase 연결 대기
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        const db = window.firebaseDB;
+        const doc = window.firebaseDoc;
+        const getDoc = window.firebaseGetDoc;
+        const setDoc = window.firebaseSetDoc;
+        const onSnapshot = window.firebaseOnSnapshot;
+
         // 점수 설정: A는 5,4,3,2,1 / B는 4,3,2,1
         const POINTS = {
             A: [5, 4, 3, 2, 1],
             B: [4, 3, 2, 1]
         };
 
-        const scores = {
+        let scores = {
             A: { '01': 0, '02': 0, '03': 0, '04': 0, '05': 0 },
             B: { '01': 0, '02': 0, '03': 0, '04': 0 }
         };
         let totalVoteCount = 0;
+
+        // Firestore 문서 참조
+        const voteDocRef = doc(db, 'votes', 'logoVote');
+        
+        // Firestore 실시간 동기화
+        onSnapshot(voteDocRef, (docSnap) => {
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                scores = data.scores || scores;
+                totalVoteCount = data.totalVoteCount || 0;
+                renderResults();
+            }
+        });
+
+        // Firestore에 데이터 저장
+        async function saveToFirestore() {
+            await setDoc(voteDocRef, {
+                scores: scores,
+                totalVoteCount: totalVoteCount,
+                lastUpdated: new Date().toISOString()
+            });
+        }
 
         const groupASelects = document.querySelectorAll('#groupA .rank-select');
         const groupBSelects = document.querySelectorAll('#groupB .rank-select');
@@ -896,15 +951,16 @@
             updateSelectOptions(groupBSelects);
         }
 
-        function resetAllVotes() {
+        async function resetAllVotes() {
             scores.A = { '01': 0, '02': 0, '03': 0, '04': 0, '05': 0 };
             scores.B = { '01': 0, '02': 0, '03': 0, '04': 0 };
             totalVoteCount = 0;
+            await saveToFirestore();
             renderResults();
         }
 
         // 투표완료
-        submitBtn.addEventListener('click', () => {
+        submitBtn.addEventListener('click', async () => {
             const aValues = Array.from(groupASelects).map(s => s.value);
             const bValues = Array.from(groupBSelects).map(s => s.value);
 
@@ -930,6 +986,7 @@
             });
 
             totalVoteCount++;
+            await saveToFirestore();
             renderResults();
             resetForm();
             successModal.classList.add('show');
@@ -962,8 +1019,8 @@
             resetModal.classList.remove('show');
         });
 
-        confirmReset.addEventListener('click', () => {
-            resetAllVotes();
+        confirmReset.addEventListener('click', async () => {
+            await resetAllVotes();
             resetModal.classList.remove('show');
         });
 
