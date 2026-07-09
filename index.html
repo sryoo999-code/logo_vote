@@ -391,27 +391,15 @@
             <div class="place-list" id="placeList">
                 <div class="place-card" data-place="라몬">
                     <span class="place-name">라몬</span>
-                    <span class="place-badge">
-                        <span class="badge-text">1순위</span>
-                    </span>
                 </div>
                 <div class="place-card" data-place="평냉">
                     <span class="place-name">평냉</span>
-                    <span class="place-badge">
-                        <span class="badge-text">1순위</span>
-                    </span>
                 </div>
                 <div class="place-card" data-place="딤섬귀진">
                     <span class="place-name">딤섬귀진</span>
-                    <span class="place-badge">
-                        <span class="badge-text">1순위</span>
-                    </span>
                 </div>
                 <div class="place-card" data-place="직화장인">
                     <span class="place-name">직화장인</span>
-                    <span class="place-badge">
-                        <span class="badge-text">1순위</span>
-                    </span>
                 </div>
             </div>
 
@@ -512,16 +500,9 @@
                 const place = card.dataset.place;
                 const idx = selected.indexOf(place);
                 card.classList.remove('selected-1', 'selected-2');
-                const badge = card.querySelector('.place-badge');
-                const badgeText = card.querySelector('.badge-text');
 
-                if (idx === 0) {
-                    card.classList.add('selected-1');
-                    badgeText.textContent = '1순위';
-                } else if (idx === 1) {
-                    card.classList.add('selected-2');
-                    badgeText.textContent = '2순위';
-                }
+                if (idx === 0) card.classList.add('selected-1');
+                else if (idx === 1) card.classList.add('selected-2');
             });
 
             hint.innerHTML = `<span>${selected.length}</span> / 2 선택`;
@@ -582,7 +563,7 @@
             selected = [];
             updateCards();
 
-            document.getElementById('successModal').classList.add('show');
+            showPage(document.getElementById('resultPage'));
         });
 
         document.getElementById('closeSuccessModal').addEventListener('click', () => {
