@@ -116,14 +116,10 @@
             background: var(--bg-hover);
         }
 
-        .place-card.selected-1 {
+        .place-card.selected-1,
+        .place-card.selected-2 {
             border-color: var(--gold);
             background: rgba(251, 191, 36, 0.08);
-        }
-
-        .place-card.selected-2 {
-            border-color: var(--silver);
-            background: rgba(156, 163, 175, 0.08);
         }
 
         .place-name {
@@ -552,16 +548,25 @@
         submitBtn.addEventListener('click', async () => {
             if (selected.length < 2) return;
 
+            submitBtn.disabled = true;
+            submitBtn.textContent = '저장 중...';
+
             selected.forEach((place, index) => {
                 scores[place] += POINTS[index];
             });
 
             totalVoteCount++;
-            await saveToFirestore();
-            renderResults();
 
+            try {
+                await saveToFirestore();
+            } catch (e) {
+                console.error(e);
+            }
+
+            renderResults();
             selected = [];
             updateCards();
+            submitBtn.textContent = '투표하기';
 
             showPage(document.getElementById('resultPage'));
         });
