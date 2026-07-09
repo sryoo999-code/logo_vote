@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로고 선택해주세요</title>
+    <title>회식 장소 투표</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -126,22 +126,6 @@
             font-size: 1.125rem;
             font-weight: 600;
             color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .section-title .badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            font-size: 0.875rem;
-            font-weight: 700;
-            border-radius: 6px;
         }
 
         .section-subtitle {
@@ -162,7 +146,7 @@
         }
 
         .rank-label {
-            width: 56px;
+            width: 64px;
             font-size: 0.875rem;
             font-weight: 600;
             color: var(--text-secondary);
@@ -173,7 +157,6 @@
 
         .rank-label.rank-1 { color: var(--gold); }
         .rank-label.rank-2 { color: var(--silver); }
-        .rank-label.rank-3 { color: var(--bronze); }
 
         .rank-icon {
             font-size: 1rem;
@@ -214,7 +197,6 @@
 
         .rank-points.rank-1 { color: var(--gold); font-weight: 600; }
         .rank-points.rank-2 { color: var(--silver); }
-        .rank-points.rank-3 { color: var(--bronze); }
 
         .button-section {
             display: flex;
@@ -267,23 +249,6 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 40px 32px;
-        }
-
-        .results-group {
-            margin-bottom: 40px;
-        }
-
-        .results-group:last-of-type {
-            margin-bottom: 0;
-        }
-
-        .results-group-title {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         .result-item {
@@ -573,7 +538,7 @@
             }
 
             .rank-label {
-                width: 48px;
+                width: 56px;
                 font-size: 0.8125rem;
             }
 
@@ -623,139 +588,42 @@
     <div class="container">
         <!-- 투표 페이지 -->
         <div class="page active" id="votePage">
-            <h1 class="title">로고 평가하기</h1>
-            <p class="subtitle">브랜드 방향성과 가장 잘 맞는 순서로 선택해주세요.</p>
+            <h1 class="title">🍽️ 회식 장소 투표</h1>
+            <p class="subtitle">가고 싶은 순서로 2곳을 선택해주세요.</p>
 
             <div class="vote-section">
                 <div class="section-header">
-                    <h2 class="section-title">
-                        <span class="badge">A</span>
-                        로고
-                    </h2>
-                    <span class="section-subtitle">1등 5점 → 5등 1점</span>
+                    <h2 class="section-title">장소 선택</h2>
+                    <span class="section-subtitle">1순위 2점 · 2순위 1점</span>
                 </div>
-                <div class="rank-grid" id="groupA">
+                <div class="rank-grid" id="voteGroup">
                     <div class="rank-row">
-                        <span class="rank-label rank-1"><span class="rank-icon">🥇</span> 1등</span>
-                        <select class="rank-select" data-group="A" data-rank="1">
+                        <span class="rank-label rank-1"><span class="rank-icon">🥇</span> 1순위</span>
+                        <select class="rank-select" data-rank="1">
                             <option value="">선택</option>
-                            <option value="01">A-01</option>
-                            <option value="02">A-02</option>
-                            <option value="03">A-03</option>
-                            <option value="04">A-04</option>
-                            <option value="05">A-05</option>
+                            <option value="라몬">라몬</option>
+                            <option value="평냉">평냉</option>
+                            <option value="딤섬귀진">딤섬귀진</option>
+                            <option value="직화장인">직화장인</option>
                         </select>
-                        <span class="rank-points rank-1">+5점</span>
+                        <span class="rank-points rank-1">+2점</span>
                     </div>
                     <div class="rank-row">
-                        <span class="rank-label rank-2"><span class="rank-icon">🥈</span> 2등</span>
-                        <select class="rank-select" data-group="A" data-rank="2">
+                        <span class="rank-label rank-2"><span class="rank-icon">🥈</span> 2순위</span>
+                        <select class="rank-select" data-rank="2">
                             <option value="">선택</option>
-                            <option value="01">A-01</option>
-                            <option value="02">A-02</option>
-                            <option value="03">A-03</option>
-                            <option value="04">A-04</option>
-                            <option value="05">A-05</option>
+                            <option value="라몬">라몬</option>
+                            <option value="평냉">평냉</option>
+                            <option value="딤섬귀진">딤섬귀진</option>
+                            <option value="직화장인">직화장인</option>
                         </select>
-                        <span class="rank-points rank-2">+4점</span>
-                    </div>
-                    <div class="rank-row">
-                        <span class="rank-label rank-3"><span class="rank-icon">🥉</span> 3등</span>
-                        <select class="rank-select" data-group="A" data-rank="3">
-                            <option value="">선택</option>
-                            <option value="01">A-01</option>
-                            <option value="02">A-02</option>
-                            <option value="03">A-03</option>
-                            <option value="04">A-04</option>
-                            <option value="05">A-05</option>
-                        </select>
-                        <span class="rank-points rank-3">+3점</span>
-                    </div>
-                    <div class="rank-row">
-                        <span class="rank-label">4등</span>
-                        <select class="rank-select" data-group="A" data-rank="4">
-                            <option value="">선택</option>
-                            <option value="01">A-01</option>
-                            <option value="02">A-02</option>
-                            <option value="03">A-03</option>
-                            <option value="04">A-04</option>
-                            <option value="05">A-05</option>
-                        </select>
-                        <span class="rank-points">+2점</span>
-                    </div>
-                    <div class="rank-row">
-                        <span class="rank-label">5등</span>
-                        <select class="rank-select" data-group="A" data-rank="5">
-                            <option value="">선택</option>
-                            <option value="01">A-01</option>
-                            <option value="02">A-02</option>
-                            <option value="03">A-03</option>
-                            <option value="04">A-04</option>
-                            <option value="05">A-05</option>
-                        </select>
-                        <span class="rank-points">+1점</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="vote-section">
-                <div class="section-header">
-                    <h2 class="section-title">
-                        <span class="badge">B</span>
-                        로고
-                    </h2>
-                    <span class="section-subtitle">1등 4점 → 4등 1점</span>
-                </div>
-                <div class="rank-grid" id="groupB">
-                    <div class="rank-row">
-                        <span class="rank-label rank-1"><span class="rank-icon">🥇</span> 1등</span>
-                        <select class="rank-select" data-group="B" data-rank="1">
-                            <option value="">선택</option>
-                            <option value="01">B-01</option>
-                            <option value="02">B-02</option>
-                            <option value="03">B-03</option>
-                            <option value="04">B-04</option>
-                        </select>
-                        <span class="rank-points rank-1">+4점</span>
-                    </div>
-                    <div class="rank-row">
-                        <span class="rank-label rank-2"><span class="rank-icon">🥈</span> 2등</span>
-                        <select class="rank-select" data-group="B" data-rank="2">
-                            <option value="">선택</option>
-                            <option value="01">B-01</option>
-                            <option value="02">B-02</option>
-                            <option value="03">B-03</option>
-                            <option value="04">B-04</option>
-                        </select>
-                        <span class="rank-points rank-2">+3점</span>
-                    </div>
-                    <div class="rank-row">
-                        <span class="rank-label rank-3"><span class="rank-icon">🥉</span> 3등</span>
-                        <select class="rank-select" data-group="B" data-rank="3">
-                            <option value="">선택</option>
-                            <option value="01">B-01</option>
-                            <option value="02">B-02</option>
-                            <option value="03">B-03</option>
-                            <option value="04">B-04</option>
-                        </select>
-                        <span class="rank-points rank-3">+2점</span>
-                    </div>
-                    <div class="rank-row">
-                        <span class="rank-label">4등</span>
-                        <select class="rank-select" data-group="B" data-rank="4">
-                            <option value="">선택</option>
-                            <option value="01">B-01</option>
-                            <option value="02">B-02</option>
-                            <option value="03">B-03</option>
-                            <option value="04">B-04</option>
-                        </select>
-                        <span class="rank-points">+1점</span>
+                        <span class="rank-points rank-2">+1점</span>
                     </div>
                 </div>
             </div>
 
             <div class="button-section">
-                <button class="submit-btn" id="submitBtn">투표완료</button>
+                <button class="submit-btn" id="submitBtn">투표하기</button>
                 <button class="view-result-btn" id="viewResultBtn">투표 결과 보기</button>
             </div>
         </div>
@@ -766,14 +634,7 @@
             <p class="subtitle">점수 순으로 정렬된 결과입니다</p>
 
             <div class="results-container">
-                <div class="results-group">
-                    <h3 class="results-group-title">A 로고 순위</h3>
-                    <div id="resultsA"></div>
-                </div>
-                <div class="results-group">
-                    <h3 class="results-group-title">B 로고 순위</h3>
-                    <div id="resultsB"></div>
-                </div>
+                <div id="resultsMain"></div>
                 <div class="total-votes">
                     <p class="total-label">총 참여자 수</p>
                     <p class="total-number" id="totalVotes">0</p>
@@ -814,31 +675,21 @@
     </div>
 
     <script type="module">
-        // Firebase 연결 대기
         await new Promise(resolve => setTimeout(resolve, 500));
-        
+
         const db = window.firebaseDB;
         const doc = window.firebaseDoc;
-        const getDoc = window.firebaseGetDoc;
         const setDoc = window.firebaseSetDoc;
         const onSnapshot = window.firebaseOnSnapshot;
 
-        // 점수 설정: A는 5,4,3,2,1 / B는 4,3,2,1
-        const POINTS = {
-            A: [5, 4, 3, 2, 1],
-            B: [4, 3, 2, 1]
-        };
+        const PLACES = ['라몬', '평냉', '딤섬귀진', '직화장인'];
+        const POINTS = [2, 1];
 
-        let scores = {
-            A: { '01': 0, '02': 0, '03': 0, '04': 0, '05': 0 },
-            B: { '01': 0, '02': 0, '03': 0, '04': 0 }
-        };
+        let scores = { '라몬': 0, '평냉': 0, '딤섬귀진': 0, '직화장인': 0 };
         let totalVoteCount = 0;
 
-        // Firestore 문서 참조
-        const voteDocRef = doc(db, 'votes', 'logoVote');
-        
-        // Firestore 실시간 동기화
+        const voteDocRef = doc(db, 'votes', 'dinnerVote');
+
         onSnapshot(voteDocRef, (docSnap) => {
             if (docSnap.exists()) {
                 const data = docSnap.data();
@@ -848,17 +699,15 @@
             }
         });
 
-        // Firestore에 데이터 저장
         async function saveToFirestore() {
             await setDoc(voteDocRef, {
-                scores: scores,
-                totalVoteCount: totalVoteCount,
+                scores,
+                totalVoteCount,
                 lastUpdated: new Date().toISOString()
             });
         }
 
-        const groupASelects = document.querySelectorAll('#groupA .rank-select');
-        const groupBSelects = document.querySelectorAll('#groupB .rank-select');
+        const selects = document.querySelectorAll('#voteGroup .rank-select');
         const submitBtn = document.getElementById('submitBtn');
         const viewResultBtn = document.getElementById('viewResultBtn');
         const backBtn = document.getElementById('backBtn');
@@ -871,31 +720,18 @@
         const cancelReset = document.getElementById('cancelReset');
         const confirmReset = document.getElementById('confirmReset');
 
-        // 중복 선택 방지
-        function updateSelectOptions(selects) {
-            const selectedValues = Array.from(selects)
-                .map(s => s.value)
-                .filter(v => v !== '');
-
+        function updateSelectOptions() {
+            const selectedValues = Array.from(selects).map(s => s.value).filter(v => v !== '');
             selects.forEach(select => {
-                const options = select.querySelectorAll('option');
-                options.forEach(option => {
+                select.querySelectorAll('option').forEach(option => {
                     if (option.value === '') return;
-                    if (selectedValues.includes(option.value) && option.value !== select.value) {
-                        option.disabled = true;
-                    } else {
-                        option.disabled = false;
-                    }
+                    option.disabled = selectedValues.includes(option.value) && option.value !== select.value;
                 });
             });
         }
 
-        groupASelects.forEach(select => {
-            select.addEventListener('change', () => updateSelectOptions(groupASelects));
-        });
-
-        groupBSelects.forEach(select => {
-            select.addEventListener('change', () => updateSelectOptions(groupBSelects));
+        selects.forEach(select => {
+            select.addEventListener('change', updateSelectOptions);
         });
 
         function showPage(page) {
@@ -906,36 +742,16 @@
         }
 
         function renderResults() {
-            const resultsA = document.getElementById('resultsA');
-            const resultsB = document.getElementById('resultsB');
+            const resultsMain = document.getElementById('resultsMain');
+            const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
 
-            // A 그룹 정렬
-            const sortedA = Object.entries(scores.A)
-                .sort((a, b) => b[1] - a[1]);
-
-            resultsA.innerHTML = '';
-            sortedA.forEach(([key, value], index) => {
+            resultsMain.innerHTML = '';
+            sorted.forEach(([name, value], index) => {
                 const rankClass = index < 3 ? `rank-${index + 1}` : '';
-                resultsA.innerHTML += `
+                resultsMain.innerHTML += `
                     <div class="result-item ${rankClass}">
                         <div class="result-rank">${index + 1}</div>
-                        <span class="result-label">A-${key}</span>
-                        <span class="result-score">${value}<span>점</span></span>
-                    </div>
-                `;
-            });
-
-            // B 그룹 정렬
-            const sortedB = Object.entries(scores.B)
-                .sort((a, b) => b[1] - a[1]);
-
-            resultsB.innerHTML = '';
-            sortedB.forEach(([key, value], index) => {
-                const rankClass = index < 3 ? `rank-${index + 1}` : '';
-                resultsB.innerHTML += `
-                    <div class="result-item ${rankClass}">
-                        <div class="result-rank">${index + 1}</div>
-                        <span class="result-label">B-${key}</span>
+                        <span class="result-label">${name}</span>
                         <span class="result-score">${value}<span>점</span></span>
                     </div>
                 `;
@@ -945,44 +761,25 @@
         }
 
         function resetForm() {
-            groupASelects.forEach(s => s.value = '');
-            groupBSelects.forEach(s => s.value = '');
-            updateSelectOptions(groupASelects);
-            updateSelectOptions(groupBSelects);
+            selects.forEach(s => s.value = '');
+            updateSelectOptions();
         }
 
-        async function resetAllVotes() {
-            scores.A = { '01': 0, '02': 0, '03': 0, '04': 0, '05': 0 };
-            scores.B = { '01': 0, '02': 0, '03': 0, '04': 0 };
-            totalVoteCount = 0;
-            await saveToFirestore();
-            renderResults();
-        }
-
-        // 투표완료
         submitBtn.addEventListener('click', async () => {
-            const aValues = Array.from(groupASelects).map(s => s.value);
-            const bValues = Array.from(groupBSelects).map(s => s.value);
+            const values = Array.from(selects).map(s => s.value);
 
-            // 유효성 검사 - 최소 하나 이상 선택
-            const hasAnySelection = [...aValues, ...bValues].some(v => v !== '');
-            if (!hasAnySelection) {
-                alert('최소 하나 이상의 순위를 선택해주세요.');
+            if (values.every(v => v === '')) {
+                alert('1순위와 2순위를 모두 선택해주세요.');
                 return;
             }
 
-            // A 그룹 점수 반영
-            aValues.forEach((value, index) => {
-                if (value) {
-                    scores.A[value] += POINTS.A[index];
-                }
-            });
+            if (values[0] === '' || values[1] === '') {
+                alert('1순위와 2순위를 모두 선택해주세요.');
+                return;
+            }
 
-            // B 그룹 점수 반영
-            bValues.forEach((value, index) => {
-                if (value) {
-                    scores.B[value] += POINTS.B[index];
-                }
+            values.forEach((value, index) => {
+                if (value) scores[value] += POINTS[index];
             });
 
             totalVoteCount++;
@@ -992,14 +789,9 @@
             successModal.classList.add('show');
         });
 
-        closeSuccessModal.addEventListener('click', () => {
-            successModal.classList.remove('show');
-        });
-
+        closeSuccessModal.addEventListener('click', () => successModal.classList.remove('show'));
         successModal.addEventListener('click', (e) => {
-            if (e.target === successModal) {
-                successModal.classList.remove('show');
-            }
+            if (e.target === successModal) successModal.classList.remove('show');
         });
 
         viewResultBtn.addEventListener('click', () => {
@@ -1007,27 +799,21 @@
             showPage(resultPage);
         });
 
-        backBtn.addEventListener('click', () => {
-            showPage(votePage);
-        });
+        backBtn.addEventListener('click', () => showPage(votePage));
 
-        resetBtn.addEventListener('click', () => {
-            resetModal.classList.add('show');
-        });
-
-        cancelReset.addEventListener('click', () => {
-            resetModal.classList.remove('show');
-        });
+        resetBtn.addEventListener('click', () => resetModal.classList.add('show'));
+        cancelReset.addEventListener('click', () => resetModal.classList.remove('show'));
 
         confirmReset.addEventListener('click', async () => {
-            await resetAllVotes();
+            scores = { '라몬': 0, '평냉': 0, '딤섬귀진': 0, '직화장인': 0 };
+            totalVoteCount = 0;
+            await saveToFirestore();
+            renderResults();
             resetModal.classList.remove('show');
         });
 
         resetModal.addEventListener('click', (e) => {
-            if (e.target === resetModal) {
-                resetModal.classList.remove('show');
-            }
+            if (e.target === resetModal) resetModal.classList.remove('show');
         });
 
         renderResults();
